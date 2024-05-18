@@ -8,8 +8,6 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-use Composer\Script\PackageEvent;
-
 /**
  * Check if the class does not exits then only allow the file to add
  */
@@ -20,8 +18,8 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 	 * This class defines all code necessary to run during the plugin's licences and update.
 	 *
 	 * @since      0.0.1
-	 * @package    AcrossWP_Main_Menu
-	 * @subpackage AcrossWP_Main_Menu/includes
+	 * @package    AcrossWP_Register_Blocks
+	 * @subpackage AcrossWP_Register_Blocks/includes
 	 * @author     AcrossWP <contact@acrosswp.com>
 	 */
 	class AcrossWP_Register_Blocks {
@@ -29,7 +27,7 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 		/**
 		 * The single instance of the class.
 		 *
-		 * @var AcrossWP_Main_Menu
+		 * @var AcrossWP_Register_Blocks
 		 * @since 0.0.1
 		 */
 		protected static $_instance = null;
@@ -45,14 +43,14 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 		}
 
 		/**
-		 * Main Post_Anonymously_Loader Instance.
+		 * Main AcrossWP_Register_Blocks Instance.
 		 *
 		 * Ensures only one instance of WooCommerce is loaded or can be loaded.
 		 *
 		 * @since 0.0.1
 		 * @static
-		 * @see Post_Anonymously_Loader()
-		 * @return Post_Anonymously_Loader - Main instance.
+		 * @see AcrossWP_Register_Blocks()
+		 * @return AcrossWP_Register_Blocks - Main instance.
 		 */
 		public static function instance() {
 			if ( is_null( self::$_instance ) ) {
@@ -68,14 +66,45 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 		 */
 		function register_blocks() {
 			
-            $package = $event->getOperation()->getPackage();
-            $originDir = $package->someFunctionToFind(); #Here, I should retrieve the install dir
+			$blocks_dir = $this->get_block_path();
 
-            if (file_exists($originDir) && is_dir($originDir)) {
-                var_dump( $originDir );
-            } 
+			$blocks_folders = array_diff( scandir( $blocks_dir ), array( '..', '.' ) );
+
+			foreach ( $blocks_folders as $block_name ) {
+				$path = "$blocks_dir/$block_name";
+				if ( is_dir( $path ) ) {
+					register_block_type( $path );
+				}
+			}
+		}
+
+		/**
+		 * Get the vendor path of composer
+		 * 
+		 * @return string Path of the vendor dir
+		 */
+		function get_vendor_path() {
+			return \SzepeViktor\Composer\PackagePath::getVendorPath();	
+		}
+
+		/**
+		 * Get the plugin path
+		 * 
+		 * @return string Path of the plugins
+		 */
+		function get_plugin_path() {
+			return dirname( $this->get_vendor_path() );
+		}
+
+		/**
+		 * Get the plugin path
+		 * 
+		 * @return string Path of the plugins
+		 */
+		function get_block_path() {
+			return $this->get_plugin_path() . '/build';
 		}
 	}
 
-	AcrossWP_Main_Menu::instance();
+	AcrossWP_Register_Blocks::instance();
 }
