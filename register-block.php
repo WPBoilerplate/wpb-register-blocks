@@ -65,16 +65,12 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 		 * @return void
 		 */
 		function register_blocks() {
-			
+
 			$blocks_dir = $this->get_block_path();
 
-			$blocks_folders = array_diff( scandir( $blocks_dir ), array( '..', '.' ) );
-
-			foreach ( $blocks_folders as $block_name ) {
-				$path = "$blocks_dir/$block_name";
-				if ( is_dir( $path ) ) {
-					register_block_type( $path );
-				}
+			$block_directories = glob( $blocks_dir . "/*", GLOB_ONLYDIR );
+			foreach ( $block_directories as $block) {
+				register_block_type( $block );
 			}
 		}
 
