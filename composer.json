@@ -1,5 +1,5 @@
 {
-    "name": "acrosswp/acrosswp-register-block",
+    "name": "acrosswp/acrosswp-register-blocks",
     "type": "library",
     "license": "GPL-2.0-or-later",
     "description": "Composer to autoload the AcrossWP Admin Dashboard Main Menu",
@@ -12,7 +12,7 @@
         "files": ["register-block.php"]
     },
     "support": {
-        "issues": "https://github.com/acrosswp/acrosswp-about-us/issues"
+        "issues": "https://github.com/acrosswp/acrosswp-register-blocks/issues"
     },
     "require": {
         "szepeviktor/package-path": "dev-master"
