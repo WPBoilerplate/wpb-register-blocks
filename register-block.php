@@ -66,39 +66,12 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 		 */
 		function register_blocks() {
 
-			$blocks_dir = $this->get_block_path();
+			$blocks_dir = AcrossWP_Plugins_Info::instance()->get_block_path();
 
 			$block_directories = glob( $blocks_dir . "/*", GLOB_ONLYDIR );
 			foreach ( $block_directories as $block) {
 				register_block_type( $block );
 			}
-		}
-
-		/**
-		 * Get the vendor path of composer
-		 * 
-		 * @return string Path of the vendor dir
-		 */
-		function get_vendor_path() {
-			return \SzepeViktor\Composer\PackagePath::getVendorPath();	
-		}
-
-		/**
-		 * Get the plugin path
-		 * 
-		 * @return string Path of the plugins
-		 */
-		function get_plugin_path() {
-			return dirname( $this->get_vendor_path() );
-		}
-
-		/**
-		 * Get the plugin path
-		 * 
-		 * @return string Path of the plugins
-		 */
-		function get_block_path() {
-			return $this->get_plugin_path() . '/build';
 		}
 	}
 
