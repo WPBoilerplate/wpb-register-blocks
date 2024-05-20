@@ -15,7 +15,7 @@
         "issues": "https://github.com/acrosswp/acrosswp-register-blocks/issues"
     },
     "require": {
-        "szepeviktor/package-path": "dev-master"
+        "acrosswp/acrosswp-plugins-info": "dev-main"
     },
     "authors": [
         {
