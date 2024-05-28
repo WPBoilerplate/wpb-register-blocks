@@ -11,46 +11,36 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Check if the class does not exits then only allow the file to add
  */
-if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
+if ( ! class_exists( 'AcrossWP_Plugins_Info' ) ) {
 	/**
 	 * Fired during plugin licences.
 	 *
 	 * This class defines all code necessary to run during the plugin's licences and update.
 	 *
 	 * @since      0.0.1
-	 * @package    AcrossWP_Register_Blocks
-	 * @subpackage AcrossWP_Register_Blocks/includes
+	 * @package    AcrossWP_Plugins_Info
+	 * @subpackage AcrossWP_Plugins_Info/includes
 	 * @author     AcrossWP <contact@acrosswp.com>
 	 */
-	class AcrossWP_Register_Blocks {
+	class AcrossWP_Plugins_Info {
 
 		/**
 		 * The single instance of the class.
 		 *
-		 * @var AcrossWP_Register_Blocks
+		 * @var AcrossWP_Plugins_Info
 		 * @since 0.0.1
 		 */
 		protected static $_instance = null;
 
 		/**
-		 * Initialize the collections used to maintain the actions and filters.
-		 *
-		 * @since    0.0.1
-		 */
-		public function __construct() {
-
-            add_action( 'init', array( $this, 'register_blocks' ) );
-		}
-
-		/**
-		 * Main AcrossWP_Register_Blocks Instance.
+		 * Main AcrossWP_Plugins_Info Instance.
 		 *
 		 * Ensures only one instance of WooCommerce is loaded or can be loaded.
 		 *
 		 * @since 0.0.1
 		 * @static
-		 * @see AcrossWP_Register_Blocks()
-		 * @return AcrossWP_Register_Blocks - Main instance.
+		 * @see AcrossWP_Plugins_Info()
+		 * @return AcrossWP_Plugins_Info - Main instance.
 		 */
 		public static function instance() {
 			if ( is_null( self::$_instance ) ) {
@@ -60,20 +50,50 @@ if( ! class_exists( 'AcrossWP_Register_Blocks' ) ) {
 		}
 
 		/**
-		 * Adds the plugin license page to the admin menu.
+		 * Get the vendor path of composer
 		 *
-		 * @return void
+		 * @return string Path of the vendor dir
 		 */
-		function register_blocks() {
+		public function get_vendor_path() {
+			return \SzepeViktor\Composer\PackagePath::getVendorPath();	
+		}
 
-			$blocks_dir = AcrossWP_Plugins_Info::instance()->get_block_path();
+		/**
+		 * Get the plugin path
+		 *
+		 * @return string Path of the plugins
+		 */
+		public function get_plugin_path() {
+			return dirname( $this->get_vendor_path() );
+		}
 
-			$block_directories = glob( $blocks_dir . "/*", GLOB_ONLYDIR );
-			foreach ( $block_directories as $block) {
-				register_block_type( $block );
-			}
+		/**
+		 * Get the plugin path
+		 *
+		 * @return string Path of the plugins
+		 */
+		public function get_full_plugin_path() {
+			return $this->get_plugin_path() . '/' . $this->get_plugin_file_name() . '.php';
+		}
+
+		/**
+		 * Get the plugin path
+		 *
+		 * @return string Path of the plugins
+		 */
+		public function get_plugin_file_name() {
+			return basename( $this->get_plugin_path() );
+		}
+
+		/**
+		 * Get the plugin path
+		 *
+		 * @return string Path of the plugins
+		 */
+		public function get_block_path() {
+			return $this->get_plugin_path() . '/build/blocks';
 		}
 	}
 
-	AcrossWP_Register_Blocks::instance();
+	AcrossWP_Plugins_Info::instance();
 }
