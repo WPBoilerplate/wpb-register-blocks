@@ -64,7 +64,7 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 		 *
 		 * @return void
 		 */
-		function register_blocks() {
+		public function register_blocks() {
 
 			$blocks_dir = WPBoilerplate_Plugins_Info::instance()->get_block_path();
 
