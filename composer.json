@@ -9,13 +9,13 @@
         "plugin"
     ],
     "autoload": {
-        "files": ["register-block.php"]
+        "files": ["index.php"]
     },
     "support": {
         "issues": "https://github.com/WPBoilerplate/wpb-register-blocks/issues"
     },
     "require": {
-        "acrosswp/acrosswp-plugins-info": "dev-main"
+        "wpboilerplate/wpb-plugins-info": "dev-main"
     },
     "authors": [
         {
