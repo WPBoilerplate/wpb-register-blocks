@@ -1,9 +1,9 @@
 {
-    "name": "acrosswp/acrosswp-register-blocks",
+    "name": "wpboilerplate/wpb-register-blocks",
     "type": "library",
     "license": "GPL-2.0-or-later",
-    "description": "Composer to autoload the AcrossWP Admin Dashboard Main Menu",
-    "homepage": "https://acrosswp.com/",
+    "description": "Composer to autoload the Blocks in Plugins",
+    "homepage": "https://github.com/WPBoilerplate/wpb-register-blocks",
     "keywords": [
         "wordpress",
         "plugin"
@@ -12,15 +12,11 @@
         "files": ["register-block.php"]
     },
     "support": {
-        "issues": "https://github.com/acrosswp/acrosswp-register-blocks/issues"
-    },
-    "require": {
-        "acrosswp/acrosswp-plugins-info": "dev-main"
+        "issues": "https://github.com/WPBoilerplate/wpb-register-blocks/issues"
     },
     "authors": [
         {
-            "name": "acrosswp",
-            "email": "contant@acrosswp.com"
+            "name": "WPBoilerplate"
         }
     ]
 }
