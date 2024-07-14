@@ -11,36 +11,46 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Check if the class does not exits then only allow the file to add
  */
-if ( ! class_exists( 'WPBoilerplate_Plugins_Info' ) ) {
+if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 	/**
 	 * Fired during plugin licences.
 	 *
 	 * This class defines all code necessary to run during the plugin's licences and update.
 	 *
 	 * @since      0.0.1
-	 * @package    WPBoilerplate_Plugins_Info
-	 * @subpackage WPBoilerplate_Plugins_Info/includes
-	 * @author     WPBoilerplate <contact@wpboilerplate.com>
+	 * @package    WPBoilerplate_Register_Blocks
+	 * @subpackage WPBoilerplate_Register_Blocks/includes
+	 * @author     WPBoilerplate <contact@acrosswp.com>
 	 */
-	class WPBoilerplate_Plugins_Info {
+	class WPBoilerplate_Register_Blocks {
 
 		/**
 		 * The single instance of the class.
 		 *
-		 * @var WPBoilerplate_Plugins_Info
+		 * @var WPBoilerplate_Register_Blocks
 		 * @since 0.0.1
 		 */
 		protected static $_instance = null;
 
 		/**
-		 * Main WPBoilerplate_Plugins_Info Instance.
+		 * Initialize the collections used to maintain the actions and filters.
+		 *
+		 * @since    0.0.1
+		 */
+		public function __construct() {
+
+			add_action( 'init', array( $this, 'register_blocks' ) );
+		}
+
+		/**
+		 * Main WPBoilerplate_Register_Blocks Instance.
 		 *
 		 * Ensures only one instance of WooCommerce is loaded or can be loaded.
 		 *
 		 * @since 0.0.1
 		 * @static
-		 * @see WPBoilerplate_Plugins_Info()
-		 * @return WPBoilerplate_Plugins_Info - Main instance.
+		 * @see WPBoilerplate_Register_Blocks()
+		 * @return WPBoilerplate_Register_Blocks - Main instance.
 		 */
 		public static function instance() {
 			if ( is_null( self::$_instance ) ) {
@@ -50,50 +60,20 @@ if ( ! class_exists( 'WPBoilerplate_Plugins_Info' ) ) {
 		}
 
 		/**
-		 * Get the vendor path of composer
+		 * Adds the plugin license page to the admin menu.
 		 *
-		 * @return string Path of the vendor dir
+		 * @return void
 		 */
-		public function get_vendor_path() {
-			return \SzepeViktor\Composer\PackagePath::getVendorPath();
-		}
+		function register_blocks() {
 
-		/**
-		 * Get the plugin path
-		 *
-		 * @return string Path of the plugins
-		 */
-		public function get_plugin_path() {
-			return dirname( $this->get_vendor_path() );
-		}
+			$blocks_dir = WPBoilerplate_Plugins_Info::instance()->get_block_path();
 
-		/**
-		 * Get the plugin path
-		 *
-		 * @return string Path of the plugins
-		 */
-		public function get_full_plugin_path() {
-			return $this->get_plugin_path() . '/' . $this->get_plugin_file_name() . '.php';
-		}
-
-		/**
-		 * Get the plugin path
-		 *
-		 * @return string Path of the plugins
-		 */
-		public function get_plugin_file_name() {
-			return basename( $this->get_plugin_path() );
-		}
-
-		/**
-		 * Get the plugin path
-		 *
-		 * @return string Path of the plugins
-		 */
-		public function get_block_path() {
-			return $this->get_plugin_path() . '/build/blocks';
+			$block_directories = glob( $blocks_dir . "/*", GLOB_ONLYDIR );
+			foreach ( $block_directories as $block) {
+				register_block_type( $block );
+			}
 		}
 	}
 
-	WPBoilerplate_Plugins_Info::instance();
+	WPBoilerplate_Register_Blocks::instance();
 }
