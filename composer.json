@@ -14,9 +14,6 @@
     "support": {
         "issues": "https://github.com/WPBoilerplate/wpb-register-blocks/issues"
     },
-    "require": {
-        "wpboilerplate/wpb-plugins-info": "dev-main"
-    },
     "authors": [
         {
             "name": "WPBoilerplate"

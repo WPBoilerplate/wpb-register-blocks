@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Check if the class does not exits then only allow the file to add
  */
 if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
+
 	/**
 	 * Fired during plugin licences.
 	 *
@@ -18,38 +19,31 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 	class WPBoilerplate_Register_Blocks {
 
 		/**
-		 * The single instance of the class.
+		 * The plugin dir path
 		 *
-		 * @var WPBoilerplate_Register_Blocks
-		 * @since 1.0.0
+		 * @since    1.0.0
+		 * @access   protected
+		 * @var      string    $plugin_path    The string for plugin dir path
 		 */
-		protected static $_instance = null;
+		protected $plugin_path;
 
 		/**
 		 * Initialize the collections used to maintain the actions and filters.
 		 *
 		 * @since    1.0.0
 		 */
-		public function __construct() {
+		public function __construct( $plugin_path ) {
+
+			$this->plugin_path = $plugin_path;
 
 			add_action( 'init', array( $this, 'register_blocks' ) );
 		}
 
 		/**
-		 * Main WPBoilerplate_Register_Blocks Instance.
-		 *
-		 * Ensures only one instance of WooCommerce is loaded or can be loaded.
-		 *
-		 * @since 1.0.0
-		 * @static
-		 * @see WPBoilerplate_Register_Blocks()
-		 * @return WPBoilerplate_Register_Blocks - Main instance.
+		 * Get the block path inside the plugins
 		 */
-		public static function instance() {
-			if ( is_null( self::$_instance ) ) {
-				self::$_instance = new self();
-			}
-			return self::$_instance;
+		public function get_block_path() {
+			return $this->plugin_path . '/build/blocks';
 		}
 
 		/**
@@ -59,10 +53,10 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 		 */
 		public function register_blocks() {
 
-			$blocks_dir = WPBoilerplate_Plugins_Info::instance()->get_block_path();
+			$blocks_dir = $this->get_block_path();
 
 			$block_directories = glob( $blocks_dir . "/*", GLOB_ONLYDIR );
-			foreach ( $block_directories as $block) {
+			foreach ( $block_directories as $block ) {
 				register_block_type( $block );
 			}
 		}
