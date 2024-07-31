@@ -1,10 +1,4 @@
 <?php
-/**
- * BuddyBoss Compatibility Integration Class.
- *
- * @since BuddyBoss 1.1.5
- */
-
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -17,10 +11,9 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 	 *
 	 * This class defines all code necessary to run during the plugin's licences and update.
 	 *
-	 * @since      0.0.1
+	 * @since      1.0.0
 	 * @package    WPBoilerplate_Register_Blocks
 	 * @subpackage WPBoilerplate_Register_Blocks/includes
-	 * @author     WPBoilerplate <contact@acrosswp.com>
 	 */
 	class WPBoilerplate_Register_Blocks {
 
@@ -28,14 +21,14 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 		 * The single instance of the class.
 		 *
 		 * @var WPBoilerplate_Register_Blocks
-		 * @since 0.0.1
+		 * @since 1.0.0
 		 */
 		protected static $_instance = null;
 
 		/**
 		 * Initialize the collections used to maintain the actions and filters.
 		 *
-		 * @since    0.0.1
+		 * @since    1.0.0
 		 */
 		public function __construct() {
 
@@ -47,7 +40,7 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 		 *
 		 * Ensures only one instance of WooCommerce is loaded or can be loaded.
 		 *
-		 * @since 0.0.1
+		 * @since 1.0.0
 		 * @static
 		 * @see WPBoilerplate_Register_Blocks()
 		 * @return WPBoilerplate_Register_Blocks - Main instance.
@@ -60,7 +53,7 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 		}
 
 		/**
-		 * Adds the plugin license page to the admin menu.
+		 * Adds the block into the sites
 		 *
 		 * @return void
 		 */
