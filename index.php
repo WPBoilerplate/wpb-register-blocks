@@ -61,6 +61,4 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 			}
 		}
 	}
-
-	WPBoilerplate_Register_Blocks::instance();
 }
