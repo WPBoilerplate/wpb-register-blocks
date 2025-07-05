@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPBoilerplate_Register_Blocks' ) ) {
 		 * Get the block path inside the plugins
 		 */
 		public function get_block_path() {
-			return $this->plugin_path . '/build/blocks/';
+			return $this->plugin_path . 'build/blocks';
 		}
 
 		/**
