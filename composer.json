@@ -9,7 +9,9 @@
         "plugin"
     ],
     "autoload": {
-        "files": ["index.php"]
+        "psr-4": {
+            "WPBoilerplate\\RegisterBlocks\\": ""
+        }
     },
     "support": {
         "issues": "https://github.com/WPBoilerplate/wpb-register-blocks/issues"
